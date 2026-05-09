@@ -1,5 +1,5 @@
-#ifndef MAZE
-#define MAZE
+#ifndef MAZE_H
+#define MAZE_H
 
 #include "Player.hpp"
 
@@ -39,7 +39,10 @@ public:
 //utilities for IHM
     States getState();
     Position getPlayerPos();
+    int getPlayerOrientation();
     Cell getCell(int x,int y);
+    void pauseGame();
+    void unpauseGame();
 //version textuelle
     void renderTUI();
 };

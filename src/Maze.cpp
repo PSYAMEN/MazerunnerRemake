@@ -149,6 +149,9 @@ Maze::Maze(int dim){
     {
         exit(dim);
     }
+    states.lost=false;
+    states.paused=false;
+    states.won=false;
 }
 
 
@@ -162,13 +165,13 @@ void Maze::win(){
 bool Maze::move(int dir){
     switch (dir){
         case 0:
-            if (!maze[player.getPosition().posX][player.getPosition().posY + 1].wall) player.move(dir);
+            if (!maze[player.getPosition().posX][player.getPosition().posY - 1].wall) player.move(dir);
             break;
         case 1:
             if (!maze[player.getPosition().posX + 1][player.getPosition().posY].wall) player.move(dir);
             break;
         case 2:
-            if (!maze[player.getPosition().posX][player.getPosition().posY - 1].wall) player.move(dir);
+            if (!maze[player.getPosition().posX][player.getPosition().posY + 1].wall) player.move(dir);
             break;
         case 3:
             if (!maze[player.getPosition().posX - 1][player.getPosition().posY].wall) player.move(dir);
@@ -195,8 +198,10 @@ void Maze::update(Inputs i){
 
 States Maze::getState(){return states;}
 Position Maze::getPlayerPos(){return player.getPosition();}
-Cell Maze::getCell(int x,int y){return maze[x][y];}\
-
+Cell Maze::getCell(int x,int y){return maze[x][y];}
+int Maze::getPlayerOrientation(){return player.orientation;}
+void Maze::pauseGame(){states.paused=!states.paused;}
+void Maze::unpauseGame(){states.paused=!states.paused;}
 //////////////////////////////////////////////////////////////////////////////////////
 
 void Maze::renderTUI(){

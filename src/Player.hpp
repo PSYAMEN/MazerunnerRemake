@@ -1,5 +1,5 @@
-#ifndef PLAYER
-#define PLAYER
+#ifndef PLAYER_H
+#define PLAYER_H
 
 
 #include "Structs.hpp"
@@ -20,9 +20,7 @@ public:
     bool isDead();
 //Utilities for Maze
     Position getPosition();
-
-//utilities for IHNM
-
+//utilities for IHM
     int orientation;
 };
 

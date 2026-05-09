@@ -26,3 +26,4 @@ struct Inputs{
     bool pause;
     bool select;
 };
+
