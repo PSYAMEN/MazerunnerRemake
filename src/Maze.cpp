@@ -90,7 +90,7 @@ void Maze::placeStuff(int dim){
         int y = ((rand() % (dim - 4)) & ~1) + 2;
         while (!maze[x][y].open)
         {
-            maze[x][y].boost = true;
+            maze[x][y].battery = true;
             maze[x][y].open = true;
             x = ((rand() % (dim - 4)) & ~1) + 2;
             y = ((rand() % (dim - 4)) & ~1) + 2;
@@ -138,9 +138,9 @@ Maze::Maze(int dim){
         }
         else { stage--; }
     } while (stage != 0);
-    startPos[0] = ((rand() % (dim - 4)) & ~1) + 2;
-    startPos[1] = ((rand() % (dim - 4)) & ~1) + 2;
-    maze[startPos[0]][startPos[1]].open = true;
+    startPos.posX = ((rand() % (dim - 4)) & ~1) + 2;
+    startPos.posY = ((rand() % (dim - 4)) & ~1) + 2;
+    maze[startPos.posX][startPos.posY].open = true;
     placeStuff(dim);
     breakWall(dim);
     for (int i = 0; i < dim / 10; i++)
@@ -148,3 +148,49 @@ Maze::Maze(int dim){
         exit(dim);
     }
 }
+
+
+
+//////////////////////////////////////////////////////////////////////////////////
+
+void Maze::win(){
+    if(player.getPosition().posX==dimention-1 || player.getPosition().posX==0 || player.getPosition().posY==dimention-1 || player.getPosition().posY==0)states.won=true;
+}
+
+bool Maze::move(int dir){
+    switch (dir){
+        case 0:
+            if (!maze[player.getPosition().posX][player.getPosition().posY + 1].wall) player.move(dir);
+            break;
+        case 1:
+            if (!maze[player.getPosition().posX + 1][player.getPosition().posY].wall) player.move(dir);
+            break;
+        case 2:
+            if (!maze[player.getPosition().posX][player.getPosition().posY - 1].wall) player.move(dir);
+            break;
+        case 3:
+            if (!maze[player.getPosition().posX - 1][player.getPosition().posY].wall) player.move(dir);
+            break;
+        default: return false;
+    }
+    return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+
+void Maze::update(Inputs i){
+    if (player.isDead()){
+        states.lost=true;
+    }
+    if(!states.lost || !states.won || !states.paused){
+        move(i.direction);
+        player.interaction(maze[player.getPosition().posX][player.getPosition().posY],i.direction);
+        win();
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+
+States Maze::getState(){return states;}
+Position Maze::getPlayerPos(){return player.getPosition();}
+Cell Maze::getCell(int x,int y){return maze[x][y];}

@@ -5,22 +5,19 @@
 
 const int MAX_SIZE=101;
 
-struct Cell{
-    bool wall = false;
-    bool visited = false;
-    bool trap = false;
-    bool mimic = false;
-    bool chest = false;
-    bool boost = false;
-    bool lightup = false;
-    bool open = false;
-};
+
+
 
 class Maze{
 private:
-    int startPos[2];
+//the maze and the starting position
+    Position startPos;
     Cell maze[MAX_SIZE][MAX_SIZE];
-
+    int dimention;
+    
+//states
+    States states;
+//player
     Player player;
 public:
 //stuff needed to construct the maze
@@ -31,6 +28,18 @@ public:
     void breakWall(int dim);
 //default custructor
     Maze(int dim=51);
+
+//stuff needed for update
+    void win();
+    bool move(int dir);
+
+//update function (basicaly loads a frame)
+    void update(Inputs i);
+
+//utilities for IHM
+    States getState();
+    Position getPlayerPos();
+    Cell getCell(int x,int y);
 };
 
 
