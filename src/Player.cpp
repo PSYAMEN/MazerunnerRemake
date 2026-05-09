@@ -33,6 +33,7 @@ void Player::move(int dir){
 }
 
 void Player::interaction(Cell &tile,int direction){
+    if ((tile.mimic || tile.trap) && struggle == 0) { struggle = 10; }
     if (tile.chest) {   score += 500; tile.chest = false;  ; return; }
     if (tile.battery) { battery = 450; tile.battery = false; score += 100; return; }
     if (tile.mimic)

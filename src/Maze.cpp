@@ -1,5 +1,6 @@
 #include "Maze.hpp"
 #include <math.h>
+#include <iostream>
 
 void Maze::exit(int dim){
     int c1 = rand() % 4;
@@ -109,6 +110,7 @@ void Maze::breakWall(int dim){
 }
 
 Maze::Maze(int dim){
+    dimention=dim;
     for (int i = 1; i < dim; i += 2)
     {
         for (int j = 1; j < dim; j++)
@@ -193,4 +195,37 @@ void Maze::update(Inputs i){
 
 States Maze::getState(){return states;}
 Position Maze::getPlayerPos(){return player.getPosition();}
-Cell Maze::getCell(int x,int y){return maze[x][y];}
+Cell Maze::getCell(int x,int y){return maze[x][y];}\
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+void Maze::renderTUI(){
+    for(int i=0;i<dimention;i++){
+        for(int j=0;j<dimention;j++){
+            if(maze[i][j].wall){
+                std::cout<<" X";
+            }
+            else if(maze[i][j].mimic){
+
+                std::cout<<" M";
+            }
+            else if(maze[i][j].battery){
+
+                std::cout<<" B";
+            }
+            else if(maze[i][j].trap){
+
+                std::cout<<" T";
+            }
+            else if(maze[i][j].chest){
+
+                std::cout<<" C";
+            }
+            else {
+
+                std::cout<<"  ";
+            }
+        }
+        std::cout<<std::endl;
+    }
+}

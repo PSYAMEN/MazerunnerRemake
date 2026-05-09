@@ -40,6 +40,8 @@ public:
     States getState();
     Position getPlayerPos();
     Cell getCell(int x,int y);
+//version textuelle
+    void renderTUI();
 };
 
 

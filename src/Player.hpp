@@ -20,6 +20,7 @@ public:
     bool isDead();
 //Utilities for Maze
     Position getPosition();
+
 //utilities for IHNM
 
     int orientation;
