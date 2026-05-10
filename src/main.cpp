@@ -3,6 +3,7 @@
 #include "../include/rlgl.h"
 #include "IHM.hpp"
 #include <time.h>
+#include <iostream>
 
 int main(){
     srand(time(NULL));

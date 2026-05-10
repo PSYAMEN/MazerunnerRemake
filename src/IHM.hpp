@@ -43,6 +43,7 @@ public:
 //update function
     void gameLoop();
 //render functions
+    void renderFlashlightTwT();
     void renderMainMenu();
     void renderSettings();
     void renderHandbook();
